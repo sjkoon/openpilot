@@ -129,8 +129,8 @@ class CarInterface(CarInterfaceBase):
     elif candidate == CAR.KONA_EV:
       ret.lateralTuning.pid.kf = 0.00006
       ret.mass = 1685. + STD_CARGO_KG
-      ret.wheelbase = 2.7
-      ret.steerRatio = 13.73   #Spec
+      ret.wheelbase = 2.6
+      ret.steerRatio = 11.73   #Spec
       tire_stiffness_factor = 0.385
       ret.lateralTuning.pid.kiBP, ret.lateralTuning.pid.kpBP = [[0.], [0.]]
       ret.lateralTuning.pid.kpV, ret.lateralTuning.pid.kiV = [[0.25], [0.05]]
