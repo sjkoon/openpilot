@@ -26,8 +26,8 @@ FW_SIGNATURE = get_expected_signature()
 ThermalStatus = log.ThermalData.ThermalStatus
 NetworkType = log.ThermalData.NetworkType
 CURRENT_TAU = 15.   # 15s time constant
-DAYS_NO_CONNECTIVITY_MAX = 7  # do not allow to engage after a week without internet
-DAYS_NO_CONNECTIVITY_PROMPT = 4  # send an offroad prompt after 4 days with no internet
+DAYS_NO_CONNECTIVITY_MAX = 99999  # do not allow to engage after a week without internet
+DAYS_NO_CONNECTIVITY_PROMPT = 99999  # send an offroad prompt after 4 days with no internet
 
 
 with open(BASEDIR + "/selfdrive/controls/lib/alerts_offroad.json") as json_file:
@@ -372,7 +372,7 @@ def thermald_thread():
         started_seen = True
         os.system('echo performance > /sys/class/devfreq/soc:qcom,cpubw/governor')
     else:
-      if should_start_prev or (count == 0):
+      if should_start_prev or (count == 60):
         params.put("IsOffroad", "1")
 
       started_ts = None
@@ -383,7 +383,7 @@ def thermald_thread():
       # shutdown if the battery gets lower than 3%, it's discharging, we aren't running for
       # more than a minute but we were running
       if msg.thermal.batteryPercent < BATT_PERC_OFF and msg.thermal.batteryStatus == "Discharging" and \
-         started_seen and (sec_since_boot() - off_ts) > 60:
+         started_seen and (sec_since_boot() - off_ts) > 0:
         os.system('LD_LIBRARY_PATH="" svc power shutdown')
 
     charging_disabled = check_car_battery_voltage(should_start, health, charging_disabled, msg)
