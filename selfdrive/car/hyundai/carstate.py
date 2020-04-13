@@ -303,8 +303,7 @@ class CarState(CarStateBase):
     self.prev_left_blinker_on = self.left_blinker_on
     self.prev_right_blinker_on = self.right_blinker_on
     
-    self.door_all_closed = not any([cp.vl["CGW1"]['CF_Gway_DrvDrSw'],cp.vl["CGW1"]['CF_Gway_AstDrSw'],
-                                   cp.vl["CGW2"]['CF_Gway_RLDrSw'], cp.vl["CGW2"]['CF_Gway_RRDrSw']])
+    self.door_all_closed = cp.vl["CGW1"]['CF_Gway_DrvDrSw']
     self.seatbelt = cp.vl["CGW1"]['CF_Gway_DrvSeatBeltSw']
 
     self.brake_pressed = cp.vl["TCS13"]['DriverBraking']
